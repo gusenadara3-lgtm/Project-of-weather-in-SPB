@@ -9,7 +9,7 @@ https://drive.google.com/file/d/1TXMeI7omjmWwXZIAcCXxTmmkx6bTxK6R/view?usp=drive
 В файле WEATHER_SPB.csv хранится температура за каждый день годов 2025-2026: дата и числовое значение температуры. Программа читает этот файл, считает разные статистики и показывает работу нескольких структур данных: префиксные суммы, бинарное дерево поиска, очередь и стек.
 
 ## Структура проекта
-Plaintext
+```text
 weather_project/
 ├── main.py
 ├── WEATHER_SPB.csv
