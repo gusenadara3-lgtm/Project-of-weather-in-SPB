@@ -43,7 +43,7 @@ class WeatherBST:
         """Нашли все дни с температурой выше заданного порога."""
         result = []
         self._traverse_hot_days(self.root, threshold, result)
-        return result
+        return result 
 
     def _traverse_hot_days(self, node, threshold, result):
         """Обход дерева, который собирает все даты с температурой выше порога."""
@@ -59,7 +59,7 @@ class WeatherBST:
         self._traverse_hot_days(node.right, threshold, result)
 
     def get_tree_levels(self):
-        """Обход дерева по уровням (BFS), возвращает температуры по уровням."""
+        """Обход дерева по уровням, возвращает температуры по уровням."""
         if self.root is None:
             return []
 
@@ -224,46 +224,43 @@ if __name__ == "__main__":
     analyzer = WeatherAnalyzer()
     analyzer.load_data(csv_file)
 
-    print(f"Данные за год загружены (дней в архиве: {len(analyzer.temps)})")
-    print("Первые 5 дат:", analyzer.dates[:5])
-    print("Первые 5 температур:", analyzer.temps[:5])
-    print("Первые 5 префиксных сумм:", analyzer.prefix[:5])
-    print("-" * 60)
+    print(f"Получены данные за год из файла (всего дней в файле: {len(analyzer.temps)})")
+    print()
 
-    print("\nСредняя температура по месяцам (расчет через префиксные суммы):")
+    print("\nСредняя температура по месяцам:")
     monthly_avgs = analyzer.get_month_average()
     for month, avg_t in monthly_avgs.items():
         print(f"  Месяц {month}: {avg_t}°C")
 
-    print("\nТемпературные рекорды года (линейный поиск):")
+    print("\nЛинейный поиск по списку температур:")
     coldest, warmest = analyzer.get_min_max_day()
     print(f"  Самый холодный день: {coldest[0]} ({coldest[1]}°C)")
     print(f"  Самый теплый день:   {warmest[0]} ({warmest[1]}°C)")
 
-    print("\nРейтинг месяцев от холодных к теплым (сортировка выбором):")
+    print("\nОтсортированные месяцы по средней температуре:")
     sorted_months = analyzer.sort_months(monthly_avgs)
     for month, avg_t in sorted_months:
         print(f"  Месяц {month}: {avg_t}°C")
 
     threshold_temp = 24.5
-    print(f"\nДни с аномальной жарой выше {threshold_temp}°C (через БДП):")
+    print(f"\nДни с аномальной жарой выше {threshold_temp}°C:")
     days_above = analyzer.get_hot_days_bst(threshold_temp)
     print(f"  Найдено дней: {len(days_above)}")
     for temp, date in days_above[:5]:
         print(f"    {date} - {temp}°C")
 
-    print("\nСтруктура температурного дерева по уровням (BFS):")
+    print("\nСтруктура температурного дерева по уровням:")
     levels = analyzer.get_bst_levels()
     print(f"  Всего уровней в дереве: {len(levels)}")
-    print(f"  Корень дерева (уровень 0): {levels[0]}")
-    print(f"  Потомки корня (уровень 1): {levels[1]}")
+    print(f"  Корень дерева: {levels[0]}")
+    print(f"  Потомки корня: {levels[1]}")
 
-    print("\nОбработка данных (скользящее среднее 7 дней) и отмена:")
-    print("  Исходные температуры (первые 5 дней января): ", analyzer.temps[:5])
+    print("\nСкользящее среднее 7 дней и отмена последнего преобразования:")
+    print("  Исходные температуры (первые 7 дней января): ", analyzer.temps[:7])
 
     analyzer.smooth_temps()
-    print("  После сглаживания шума (первые 5 дней):        ", analyzer.temps[:5])
-    print("  Префиксные суммы после сглаживания:            ", analyzer.prefix[:5])
+    print("  После сглаживания (первые 7 дней):        ", analyzer.temps[:7])
+    print("  Префиксные суммы после сглаживания:            ", analyzer.prefix[:7])
 
     analyzer.undo_last_change()
-    print("  Отмена сглаживания, возвращены исходные данные: ", analyzer.temps[:5]) сглаживания, возвращены исходные данные: ", analyzer.temps[:5])
+    print("  Отмена сглаживания, возвращены исходные данные: ", analyzer.temps[:7])
